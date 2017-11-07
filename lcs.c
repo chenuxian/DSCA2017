@@ -6,6 +6,10 @@
 char s1[101], s2[101], output[200000][101], temp[101]; // last char store \0
 int LCS[101][101], len_s1, len_s2, same_len, count = 0;
 
+int compare(const void*a, const void *b) {
+    return(strcmp((char *)a, (char *)b));
+}
+
 void findAll(int index_i, int index_j, int curr_len) {
     char k;
     int i, j;
@@ -58,16 +62,8 @@ int main() {
     findAll(0, 0, 0);
 	printf("%d %d\n", same_len, count);
 	
-	// sort	
-	for (i = 0; i < count; ++i) {
-      for (j = i + 1; j < count; ++j) {
-         if (strcmp(output[i], output[j]) > 0) {
-            strcpy(temp, output[i]);
-            strcpy(output[i], output[j]);
-            strcpy(output[j], temp);
-         }
-      }
-    }
+	// sort
+    qsort(output, count, sizeof output[0], compare);
     
 	for(i = 0; i < count; ++i) {
         printf("%s\n", output[i]);
