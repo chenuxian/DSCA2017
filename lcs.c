@@ -20,16 +20,14 @@ void findAll(int index_i, int index_j, int curr_len) {
 		count++;
         return;
     }
-    if(index_i == len_s1 || index_j == len_s2) {
-        return;
-	}
 
-    for(i = index_i; i < len_s1; ++i) {
+    int remain_len = same_len - curr_len;
+    for(i = index_i; i <= len_s1 - remain_len; ++i) {
         k = s1[i];
-        for(j = index_j; j < len_s2; ++j) {
-            if (k == s2[j] && LCS[i+1][j+1] == curr_len + 1) {
+        for(j = index_j; j <= len_s2 - remain_len; ++j) {
+            if (k == s2[j] && LCS[i + 1][j + 1] == curr_len + 1) {
                 temp[curr_len] = k;
-                findAll(i+1, j+1, curr_len+1);
+                findAll(i + 1, j + 1, curr_len + 1);
             }
     	}
 	}
