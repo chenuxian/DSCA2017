@@ -40,21 +40,6 @@ int main() {
     // sort by cp
     sort(item, item + num_item, cmp_func);
 
-    // test node
-    /* 
-    Node *curr_node = new Node();
-    curr_node -> w = 10;
-    Node *next_node = new Node();
-    next_node -> w = 20;
-    curr_node -> l_child = next_node;
-    printf("%d\n", curr_node -> w);
-    //delete curr_node -> l_child;
-    curr_node = curr_node -> l_child;
-    printf("%d\n", curr_node -> w);
-    if (curr_node -> l_child == NULL) {
-        printf("yaaa\n");
-    } */
-
     // initial node
     Node *curr_node = new Node();
     int l_flag = 0, level = 0, tmp_v = 0, remain_w = 0;
@@ -109,6 +94,7 @@ int main() {
                 } 
                 for (i = level; i <= max_level; ++i) {
                     if (remain_w < item[i].w) {
+                        // knapsack's size is not enough
                         tmp_v += (remain_w * item[i].cp);  
                         break;
                     } else {
@@ -121,11 +107,12 @@ int main() {
                 if ((next_node -> v) > max_v) {
                     max_v = next_node -> v;
                 }
-
+                // detemine whether need to check next_node
                 if ((next_node -> upper_bound) > max_v) {
                     curr_node = next_node;
                 }
             } else {
+                // bottom level, check value only
                 if ((next_node -> v) > max_v) {
                     max_v = next_node -> v;
                 }
